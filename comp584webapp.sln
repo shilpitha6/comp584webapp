@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "comp584webapp", "comp584webapp\comp584webapp.csproj", "{D2147EBE-025B-419F-A377-A60328650C44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "comp584webapp", "comp584webapp\comp584webapp.csproj", "{D2147EBE-025B-419F-A377-A60328650C44}"
+	ProjectSection(ProjectDependencies) = postProject
+		{02849EE7-D261-416E-BC1A-6949F9936420} = {02849EE7-D261-416E-BC1A-6949F9936420}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "datamodel", "datamodel\datamodel.csproj", "{02849EE7-D261-416E-BC1A-6949F9936420}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{D2147EBE-025B-419F-A377-A60328650C44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2147EBE-025B-419F-A377-A60328650C44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2147EBE-025B-419F-A377-A60328650C44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02849EE7-D261-416E-BC1A-6949F9936420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02849EE7-D261-416E-BC1A-6949F9936420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02849EE7-D261-416E-BC1A-6949F9936420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02849EE7-D261-416E-BC1A-6949F9936420}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
