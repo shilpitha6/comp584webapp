@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using datamodel;
+using comp584webapp.DTO;
 
 namespace comp584webapp.Controllers
 {
@@ -22,16 +23,28 @@ namespace comp584webapp.Controllers
 
         // GET: api/Cities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<City>>> GetCities()
+        public async Task<ActionResult<IList<cityDTO>>> GetCities()
         {
-            return await _context.Cities.ToListAsync();
+            IQueryable<cityDTO> x = _context.Cities.Select(c => new cityDTO
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Lat = c.Lat,
+                Long = c.Long,
+                Population = c.Population,
+                CountryName = c.Country.Name
+
+            }).Take(100);
+
+            return await x.ToListAsync();
+                
         }
 
         // GET: api/Cities/5
         [HttpGet("{id}")]
         public async Task<ActionResult<City>> GetCity(int id)
         {
-            var city = await _context.Cities.FindAsync(id);
+            City? city = await _context.Cities.FindAsync(id);
 
             if (city == null)
             {
@@ -101,7 +114,7 @@ namespace comp584webapp.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCity(int id)
         {
-            var city = await _context.Cities.FindAsync(id);
+            City? city = await _context.Cities.FindAsync(id);
             if (city == null)
             {
                 return NotFound();
