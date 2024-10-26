@@ -16,7 +16,7 @@ namespace comp584webapp.Controllers
     {
         private readonly string _pathName = Path.Combine(environment.ContentRootPath, "Data/worldcities.csv");
         [HttpPost ("Countries")]
-        [HttpPost("City")]
+        
         public async Task<IActionResult> ImportCountiriesAsync()
         {
             // create a lookup dictionary containing all the countries already existing 
