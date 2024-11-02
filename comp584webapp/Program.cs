@@ -1,4 +1,7 @@
+using comp584webapp;
 using datamodel;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,14 @@ builder.Services.AddDbContext<MycitiesContext>(
     //this is c# lambda syntax
    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
     );
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores< MycitiesContext>();
+
+builder.Services.AddScoped<JwtHandler>();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults
+});
 
 WebApplication app = builder.Build();
 

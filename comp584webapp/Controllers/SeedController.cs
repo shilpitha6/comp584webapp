@@ -102,5 +102,7 @@ namespace comp584webapp.Controllers
             return new JsonResult(cityCount);
 
         }
+        [HttpPost("Users")]
+        public async Task<IActionResult> ImportUsersAsync() { } 
     }
 }
