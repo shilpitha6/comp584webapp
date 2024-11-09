@@ -3,6 +3,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using datamodel;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,9 +13,10 @@ namespace comp584webapp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SeedController(MycitiesContext db,IHostEnvironment environment) : ControllerBase
+    public class SeedController(MycitiesContext db,IHostEnvironment environment,
+        UserManager<AppUser> userManager) : ControllerBase
     {
-        private readonly string _pathName = Path.Combine(environment.ContentRootPath, "Data/worldcities.csv");
+        private readonly string _pathName = Path.Combine(environment.ContentRootPath, "./Data/worldcities.csv");
         [HttpPost ("Countries")]
         
         public async Task<IActionResult> ImportCountiriesAsync()
@@ -103,6 +105,26 @@ namespace comp584webapp.Controllers
 
         }
         [HttpPost("Users")]
-        public async Task<IActionResult> ImportUsersAsync() { } 
+        public async Task<IActionResult> ImportUsersAsync() {
+            (string name, string email) = ("nick", "nick66@example.com");
+            AppUser user = new AppUser()
+            {
+                UserName = name,
+                Email = email,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+            if (await userManager.FindByEmailAsync(email) is not null)
+            {
+
+                return Ok(user);
+            }
+
+            IdentityResult dbUser = await userManager.CreateAsync(user, "20232425");
+
+            user.EmailConfirmed = true;
+            user.LockoutEnabled = false;
+            await db.SaveChangesAsync();
+            return Ok(user);
+        } 
     }
 }
