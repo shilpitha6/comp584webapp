@@ -119,7 +119,7 @@ namespace comp584webapp.Controllers
                 return Ok(user);
             }
 
-            IdentityResult dbUser = await userManager.CreateAsync(user, "20232425");
+            IdentityResult dbUser = await userManager.CreateAsync(user, "Ahdjg_12");
 
             user.EmailConfirmed = true;
             user.LockoutEnabled = false;
